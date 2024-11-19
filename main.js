@@ -29,38 +29,59 @@ while (decrement >= 1) {
 //3.--------------------------------------------------------------------------------------
 // Print each item in myArray using a "for loop".
 
-for (fruitList in myArray);
-{
-  console.log(myArray);
+for (let fruitList in myArray) {
+  // i all hovedsak, bare for å vise frem innholdet i listen
+  console.log(myArray[fruitList]); // krøkkete veg til målet, men siden neste oppgave er for of, gjør vi det slik.
 }
 
 //4.--------------------------------------------------------------------------------------
 // Using the myArray.push() method, add "mango" to the end of myArray.
 //print myArray using a for... of loop.
 
-let favouriteFruit = "mango";
-for (fruitList of myArray);
+let favouriteFruit = "mango"; // vi lager en let med stringen "mango", klargjort for en .push i metoden
+for (revisedFruitList of myArray); // iverksetter en for of loop
 {
-  myArray.push(favouriteFruit);
-  console.log(myArray);
+  myArray.push(favouriteFruit); // .push'er "mango" på myArray
+  console.log(myArray); // printer en oppdatert myArray som inneholder .push'et
 }
 
 //5.--------------------------------------------------------------------------------------
 //Using the myArray.splice() method, remove "cherry" from myArray
 // print the result using myArray.foreach()
 
-for (revisedFruitList of myArray);
-{
-  myArray.splice(2);
-}
+myArray.splice(2, 1); // Fjerner 1 element som er plassert på index 2. (!0, !1, ===2)
+myArray.forEach(
+  (
+    allTheFruitLeftAfterSplicing // forEach åpner opp for en arrow-funksjon som itererer gjennom en splicet myArray
+  ) => console.log(allTheFruitLeftAfterSplicing) // Vi printer den nye splice'de variabelen som har gjernet "cherry"
+);
 
 //6.--------------------------------------------------------------------------------------
 // Using the .shift() and .pop() method, remove the first and last item from myArray.
 //print the result
 
+myArray.shift(); // fjerner første element indexen
+myArray.pop(); // fjerner siste element i indexen
+console.log(myArray); // printer liste med fjernede første- og siste-elementer
+
 // 7.--------------------------------------------------------------------------------------
 // create a variable and assign it the content of myArray as a string using .join().
 // print your variable.
+
+function getArticle(vowelControl) {
+  // array av konsonanter som skal undersøkes til både en if else statement, en .map og en =>
+  const vowels = ["a", "e", "i", "o", "u"];
+  // Viss [?] den første bokstaven [0] i vowelControl er en vokal (aeiou) returneres "an", viss ikkje [:] returneres "a". (toLowerCase for global sikring)
+  return vowels.includes(vowelControl[0].toLowerCase()) ? "an" : "a";
+}
+
+const result = myArray
+  // Kartlegger VowelcontrollAdd "an" or "a" before each fruit, depending on the first letter
+  .map((vowelControl) => `${getArticle(vowelControl)} ${vowelControl}`)
+  .join(", ");
+console.log(result);
+document.getElementById("fruitsJoined").innerHTML = result;
+
 //BONUS - See if you can make the items be seperated by a space
 
 //8--------------------------------------------------------------------------------------
