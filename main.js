@@ -77,13 +77,13 @@ function getArticle(vowelControl) {
   return vowels.includes(vowelControl[0].toLowerCase()) ? "an" : "a";
 }
 
-const correctedPreposition = myArray // slår fast at correctedPreposition er det samme som my array
+const correctedArticle = myArray // slår fast at correctedArticle er det samme som my array
   // Kartlegger VowelcontrollAdd "an" or "a" before each fruit, depending on the first letter
   .map((vowelControl) => `${getArticle(vowelControl)} ${vowelControl}`)
   .join(", ");
-console.log(correctedPreposition);
-// Prints results in the prepared HTML div
-document.getElementById("fruitsJoined").innerHTML = correctedPreposition;
+console.log(correctedArticle);
+// Printer resultatene i HTML div'en fruitsJoined, men det står naturligvis også i loggen
+document.getElementById("fruitsJoined").innerHTML = correctedArticle;
 
 //BONUS - See if you can make the items be seperated by a space
 
