@@ -68,6 +68,8 @@ console.log(myArray); // printer liste med fjernede første- og siste-elementer
 // create a variable and assign it the content of myArray as a string using .join().
 // print your variable.
 
+// Inkluderer en funksjon som ikkje bare lager mellomrom til join funksjonen,
+// men innfører preposisjon ved hjelp av ein ternary
 function getArticle(vowelControl) {
   // array av konsonanter som skal undersøkes til både en if else statement, en .map og en =>
   const vowels = ["a", "e", "i", "o", "u"];
@@ -75,26 +77,44 @@ function getArticle(vowelControl) {
   return vowels.includes(vowelControl[0].toLowerCase()) ? "an" : "a";
 }
 
-const result = myArray
+const correctedPreposition = myArray // slår fast at correctedPreposition er det samme som my array
   // Kartlegger VowelcontrollAdd "an" or "a" before each fruit, depending on the first letter
   .map((vowelControl) => `${getArticle(vowelControl)} ${vowelControl}`)
   .join(", ");
-console.log(result);
-document.getElementById("fruitsJoined").innerHTML = result;
+console.log(correctedPreposition);
+// Prints results in the prepared HTML div
+document.getElementById("fruitsJoined").innerHTML = correctedPreposition;
 
 //BONUS - See if you can make the items be seperated by a space
 
 //8--------------------------------------------------------------------------------------
 //Create a function that takes a number as an argument and returns that number squared.
 // call your function by using a valid argument
-function numberSquared(number) {}
-
-numberSquared();
+// Sett i gang en funksjon som skal jazze med et nummer
+function numberSquared(number) {
+  return number * number; // funksjonen skal bruke samme nummer som argumentet, og kvadrere dette
+}
+const doTheMath = numberSquared(5); // ny konstant som skal iverksette kvadrering, men nå byttes variabelen ut med en verdi: 5
+console.log(doTheMath); // log kvadreringen
 
 //9.--------------------------------------------------------------------------------------
 //Using the "%" (modulo) operator complete the function,
 // it should take "number" as an argument and return "even" if its even and "odd" if its odd.
-function oddOrEven(number) {}
+function oddOrEven(number) {
+  // Let's get odd. (pun intended)
+  if (number % 2 === 1) {
+    // if the modulo returns an odd number, return the string odd.
+    return "odd";
+    // if else, we're even.
+  } else {
+    return "even";
+  }
+}
+// running numbers to verify that the statement works
+console.log(oddOrEven(5));
+console.log(oddOrEven(2));
+console.log(oddOrEven(9));
+
 //call your function by using one of the options below.
 // oddOrEven(prompt());
 // oddOrEven()
@@ -105,15 +125,55 @@ function oddOrEven(number) {}
 //  c = a + b;
 //  a = b;
 //  b = c;
-function Fibbonacci(number) {}
-Fibbonacci();
+
+// vi initierer et argument innledningsvis med å klargjøre en øvre grense for kalkulasjonen
+function fibbonacciCalculation(limit) {
+  // så setter vi verdiene på de minste byggestenene i loopen
+  let a = 0,
+    b = 1,
+    c;
+  const summarized = [a, b]; // dette regnestykket initialiserer kalkulasjonens utgangspunkt
+
+  // vi utfører loopsekvensen som en while statement med en boolean
+  while (true) {
+    c = a + b; // og kalkulerer grunnprinsippet for et fibonacci nummer
+    if (c > limit) break; // og sikrer med en if statement, at når grensen vår er nådd, så avbrytes loopen her
+    summarized.push(c); // så lenge grensen ikke er nådd, summeres c som et push fra en a+b kalkulasjon
+    a = b; // når c pushet er ferdig kalkulert oppdaterer vi a til å være b, klar den neste, økte, fibbonacci kalkulasjonen
+    b = c; // når c pushet er ferdig kalkulert oppdaterer vi b til å være c,  klar den neste, økte, fibbonacci kalkulasjonen
+  }
+  return summarized; // men før vi looper må vi også summere in totalsummen fra dette leddet av sekvensen. Så er vi klare for en loop.
+}
+console.log(fibbonacciCalculation(100000000)); // Nå kan vi loggføre sekvensen med alle sine tall, og sikrer at når grensen vår er nådd, så avbrytes sekvensen med i statementet på linje 141.
+
+// Denne koden gir oss en konsekvent utregning, som avbrytes med vår fulle kontroll.
 
 //11.--------------------------------------------------------------------------------------
 //BONUS!Implement fizzbuzz, if a number is divisible by 3: Fizz, if a number is divisible by 5: Buzz, if the number is divisible by both 3 and 5, FizzBuzz
 // https://www.geeksforgeeks.org/fizz-buzz-implementation/
-function fizzbuzz(number) {}
 
-fizzbuzz();
+// Vi lager en loop først som itererer mellom 1 og 100 (logikken henter vi fra oppgave 1)
+for (let fizzList = 1; fizzList <= 100; fizzList++) {
+  // Så setter vi opp en sorteringsorden med if/ else if / else statements. Først en som inkluderer både 3 og 5 gangen
+  // kan tallet deles på begge skal konsollen logge "fizzbuzz". Logikken henter vi fra oppgave 9, men vi trenger && for å slå disse to sammen.
+  //Her kunne man brukt .splice og .join hvis man snudde ting på hodet, men det blir ryddigere å reverse engineere rekkefølgen i hvordan man bygger opp string-utbyttingen.
+  if (fizzList % 3 === 0 && fizzList % 5 === 0) {
+    console.log("fizzbuzz");
+
+    // deretter kjører vi dem individuelt. Kan man dele på 3:
+  } else if (fizzList % 3 === 0) {
+    // skal konsolloggen logge "fizz"
+    console.log("fizz");
+
+    // kan man dele på 5:
+  } else if (fizzList % 5 === 0) {
+    // skal konsollen logge buzz
+    console.log("buzz");
+    // kan man ingen av delene skal ikke konsollen gjøre endringer.
+  } else {
+    console.log(fizzList);
+  }
+}
 
 //12.--------------------------------------------------------------------------------------
 //SUPERBONUS - we have not talked about recursion yet, but here is a fun one to try.
@@ -121,7 +181,8 @@ fizzbuzz();
 //Complete the function so that it returns the factorial of a number. Factorial (n!) is the product of all whole numbers between 1 and n
 //example: factorial(5) = 5 * 4 * 3 * 2 * 1 = 120
 function factorial(n) {
-  if (n === 0) return 1;
-  return; /// din kode her
+  if (n === 0) return 1; // utgangspunktet er at når n er dønn lik 0 returneres 1.
+  return n * factorial(n - 1); // så returnerer me n * n minus 1, fram til loopen er nådd 1 og avsluttes.
 }
-console.log(factorial(5));
+
+console.log("Our factorial of 5 decremented to 1 is: " + factorial(5));
